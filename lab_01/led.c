@@ -3,39 +3,40 @@
 
 #include "led.h"
 
-/*
-13|12|11|10|9|8|x|x
-*/
+#define blue 0b10
+#define green 0b100
+#define red 0b1000
+#define off 0b0000000
 
 void blinky_blue() {
-DDRB = DDRB | 0b10; // Sätt pin 9 till OUTPUT
-PORTB = 0b0000000;      // Sätt alla pins till LOW  
+DDRB = DDRB | blue;  // Sätt pin 9 till OUTPUT
+PORTB = off;        // Sätt alla pins till LOW  
     while(1){
-    PORTB = 0b10;   //Sätt pin 9 till HIGH 
+    PORTB = (1 << 1);    //Sätt pin 9 till HIGH 
      _delay_ms(500);    //Vänta 500 ms
-    PORTB = 0b0000000; //Sätt alla pinnar till LOW 
+    PORTB = off;       //Sätt alla pinnar till LOW 
     _delay_ms(500);   //Vänta 500 ms
     }    
 }
 
 void blinky_green() {
-DDRB = DDRB | 0b100; // Sätt pin 10 till OUTPUT
-PORTB = 0b0000000;      // Sätt alla pins till LOW  
+DDRB = DDRB | green; // Sätt pin 10 till OUTPUT
+PORTB = off;        // Sätt alla pins till LOW  
     while(1){
-    PORTB = 0b100;   //Sätt pin 10 till HIGH 
+    PORTB = (1 << 3);    //Sätt pin 10 till HIGH 
      _delay_ms(500);    //Vänta 500 ms
-    PORTB = 0b0000000; //Sätt alla pinnar till LOW 
+    PORTB = off;       //Sätt alla pinnar till LOW 
     _delay_ms(500);   //Vänta 500 ms
     }    
 }
 
 void blinky_red() {
-DDRB = DDRB | 0b1000; // Sätt pin 11 till OUTPUT
-PORTB = 0b0000000;      // Sätt alla pins till LOW  
+DDRB = DDRB | red; // Sätt pin 11 till OUTPUT
+PORTB = off;      // Sätt alla pins till LOW  
     while(1){
-    PORTB = 0b1000;   //Sätt pin 11 till HIGH 
+    PORTB = (1 << 4);    //Sätt pin 11 till HIGH 
      _delay_ms(500);    //Vänta 500 ms
-    PORTB = 0b0000000; //Sätt alla pinnar till LOW 
+    PORTB = off;       //Sätt alla pinnar till LOW 
     _delay_ms(500);   //Vänta 500 ms
     }  
 }
