@@ -3,9 +3,9 @@
 
 void uart_init(void);
     
-void uart_putchar(unsigned char chr);
+void uart_putchar(char chr);
 
-char uart_getchar(void);
+//char uart_getchar(void);
 
 void uart_putstr(char *str);
 
