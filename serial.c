@@ -52,10 +52,11 @@ void uart_putstr(unsigned char *str) {
 
 void uart_echo(void) {
     unsigned char chr = uart_getchar();
-    if(chr == 'a') {
+    if(chr == 'b') {
         blinky_blue();
+    } else {
+        led_off();
     }
-    led_off();
     uart_putchar(chr);
 }
 
