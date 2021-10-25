@@ -43,7 +43,7 @@ void uart_putchar(unsigned char chr) {
 }
 
 void uart_putstr(unsigned char *str) {
-    int i = 0;
+    int i = 0;                  //variable for iterating string
     while(str[i] != '\0' ) {
         uart_putchar(str[i]); // transmit character until NULL is reached
         i++;
@@ -51,16 +51,11 @@ void uart_putstr(unsigned char *str) {
 }
 
 void uart_echo(void) {
-    unsigned char chr = uart_getchar();
-    if(chr == 'b') {
-        blinky_blue();
-    } else {
-        led_off();
-    }
-    uart_putchar(chr);
+    unsigned char chr = uart_getchar(); //Fetch input from UDR0
+    uart_putchar(chr);                  //Send fetched char to putChar function
 }
 
 unsigned char uart_getchar(void) {
-    while(!(UCSR0A & (1 << RXC0)));
-    return UDR0;
+    while(!(UCSR0A & (1 << RXC0)));  //If recieve-buffer is not empty... 
+    return UDR0;                    //return whats currrently in the buffer
 }

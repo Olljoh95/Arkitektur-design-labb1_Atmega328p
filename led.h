@@ -4,8 +4,8 @@
 void led_init(void);
 void led_off(void);
 
-void blinky_blue(void);
-void blinky_green(void);
-void blinky_red(void);
+void blueLight(void);
+void greenLight(void);
+void redLight(void);
 
 #endif
