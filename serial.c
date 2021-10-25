@@ -48,11 +48,12 @@ void uart_putstr(unsigned char *str) {
 }
 
 void uart_echo(void) {
-    unsigned char chr = uart_getchar(); //Fetch input from UDR0
-    uart_putchar(chr);                  //Send fetched char to putChar function
+    uart_putchar(uart_getchar());  //Send char fetched from getChar function to putChar function
 }
 
 unsigned char uart_getchar(void) {
+    unsigned char input;
     while(!(UCSR0A & (1 << RXC0)));  //If recieve-buffer is not empty... 
-    return UDR0;                    //return whats currrently in the buffer
+    input = UDR0;            //assign buffer content to variable
+    return input;        //return variable
 }
