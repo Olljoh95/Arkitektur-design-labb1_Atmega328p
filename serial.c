@@ -56,7 +56,9 @@ void uart_putstr(unsigned char *str) {
 
 unsigned char uart_echo(void) {
     unsigned char input;
-    while((UCSR0A & (1 << RXC0)) == 0) {}
+    while(!(UCSR0A & (1 << RXC0))) {
+            
+    }
     input = UDR0;
     return input;
 }
