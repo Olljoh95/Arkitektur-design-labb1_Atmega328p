@@ -2,6 +2,7 @@
 #include <util/delay.h>
 
 #include "serial.h"
+#include "led.h"
 
 //Sida 185 megaAVR® Data Sheet
 #define FOSC 16000000 //Clock speed
@@ -20,17 +21,13 @@ void uart_init(void) {
 
         //UCSR0B = USART Control and Status Register B
         //RXEN = Enable receiver, TXEN0 = enable transmitter
-    UCSR0B = (1<<TXEN0); 
-    UCSR0B = (1<<RXEN0);
+    UCSR0B = (1<<RXEN0) | (1<<TXEN0);
 
         //The first and second bit of the USR0 register C
         //sets the number of data bits in a frame
         //the recviever and transmitter will use.
-        //In this case, UCSZ01 & UCSZ00 = 1 (8bit)
-    UCSR0C = (1 << UCSZ01) | (1 << UCSZ00);
-
-    //Type of stop bit(1)
-    //UCSR0C = (0 << USBS0);  //is set to 0 by default, making this line redundant
+        //In this case UCSZ00 = 3 (8bit), USB0 = 1 (2 stopbit)
+    UCSR0C = (1 << USBS0) | (3 << UCSZ00);
 
     //Set parity to none
     //UCSR0C &= ~_BV(UPM01) & ~_BV(UPM00); //Also set to zero by default, also redundant
@@ -47,23 +44,22 @@ void uart_putchar(unsigned char chr) {
 
 void uart_putstr(unsigned char *str) {
     int i = 0;
-
     while(str[i] != '\0' ) {
         uart_putchar(str[i]); // transmit character until NULL is reached
         i++;
     }
 }
 
-unsigned char uart_echo(void) {
-    unsigned char input;
-    while(!(UCSR0A & (1 << RXC0))) {
-            
+void uart_echo(void) {
+    unsigned char chr = uart_getchar();
+    if(chr == 'a') {
+        blinky_blue();
     }
-    input = UDR0;
-    return input;
+    led_off();
+    uart_putchar(chr);
 }
 
-void uart_getchar(void) {
-    unsigned char data = uart_echo();
-    uart_putchar(data);
+unsigned char uart_getchar(void) {
+    while(!(UCSR0A & (1 << RXC0)));
+    return UDR0;
 }

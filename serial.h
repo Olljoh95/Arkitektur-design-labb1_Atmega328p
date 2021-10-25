@@ -7,9 +7,9 @@ void uart_putchar(unsigned char chr);
 
 void uart_putstr(unsigned char *str);
 
-void uart_getchar(void);
+unsigned char uart_getchar(void);
 
-unsigned char uart_echo(void);
+void uart_echo(void);
 
 #endif
 

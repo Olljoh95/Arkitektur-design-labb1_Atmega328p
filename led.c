@@ -8,35 +8,21 @@
 #define red 0b1000
 #define off 0b0000000
 
-void blinky_blue() {
-DDRB = DDRB | blue;  // Sätt pin 9 till OUTPUT
-PORTB = off;        // Sätt alla pins till LOW  
-    while(1){
-    PORTB = (1 << 1);    //Sätt pin 9 till HIGH 
-     _delay_ms(500);    //Vänta 500 ms
-    PORTB = off;       //Sätt alla pinnar till LOW 
-    _delay_ms(500);   //Vänta 500 ms
-    }    
+void led_off(void) {
+    PORTB = off;           //Set register B to 0
 }
 
-void blinky_green() {
-DDRB = DDRB | green; // Sätt pin 10 till OUTPUT
-PORTB = off;        // Sätt alla pins till LOW  
-    while(1){
-    PORTB = (1 << 3);    //Sätt pin 10 till HIGH 
-     _delay_ms(500);    //Vänta 500 ms
-    PORTB = off;       //Sätt alla pinnar till LOW 
-    _delay_ms(500);   //Vänta 500 ms
-    }    
+void blinky_blue(void) {
+DDRB = DDRB | blue;         //Set pin 9 to OUTPUT  
+PORTB = (1 << 1);    //Set pin number 9 HIGH
 }
 
-void blinky_red() {
-DDRB = DDRB | red; // Sätt pin 11 till OUTPUT
-PORTB = off;      // Sätt alla pins till LOW  
-    while(1){
-    PORTB = (1 << 4);    //Sätt pin 11 till HIGH 
-     _delay_ms(500);    //Vänta 500 ms
-    PORTB = off;       //Sätt alla pinnar till LOW 
-    _delay_ms(500);   //Vänta 500 ms
-    }  
+void blinky_green(void) {
+DDRB = DDRB | green;      //Set pin 10 TO OUTPUT
+PORTB = (1 << 3);    //Set pin number 10 HIGH
+}
+
+void blinky_red(void) {
+DDRB = DDRB | red;       //Set pin 11 to OUTPUT
+PORTB = (1 << 4);    //Set pin number 11 HIGH
 }
