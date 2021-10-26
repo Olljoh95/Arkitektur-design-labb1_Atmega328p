@@ -44,6 +44,7 @@ void uart_buildCommand(char *cmd) {
     int i = 0;
     cmd[i] = uart_getchar();
     while(cmd[i] != '\r' && cmd[i] != '\n') {
+        uart_putchar(cmd[i]);
         if(i <= 17) {
             i++;
             cmd[i] = uart_getchar();
