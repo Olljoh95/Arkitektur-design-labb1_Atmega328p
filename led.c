@@ -17,7 +17,7 @@ void led_init(void) {
     led_off();              //turn led off to not be blinded
 }
 
-void blinkyLight(void) {
+void blueLight(void) {
 PORTB &= ~blue;    //Set pin number 9 HIGH
 }
 
