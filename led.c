@@ -18,13 +18,16 @@ void led_init(void) {
 }
 
 void blueLight(void) {
-PORTB &= ~blue;    //Set pin number 9 HIGH
+    led_off();
+    PORTB &= ~blue;    //Set pin number 9 HIGH
 }
 
 void greenLight(void) {
-PORTB &= ~green;    //Set pin number 10 HIGH
+    led_off();
+    PORTB &= ~green;    //Set pin number 10 HIGH
 }
 
 void redLight(void) {
-PORTB &= ~red;    //Set pin number 11 HIGH
+    led_off();
+    PORTB &= ~red;    //Set pin number 11 HIGH
 }
