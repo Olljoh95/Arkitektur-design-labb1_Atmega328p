@@ -6,37 +6,28 @@
 #define blue 0b10
 #define green 0b100
 #define red 0b1000
-#define off 0b0000000
+#define RGB_INIT 0b00001110
 
-void blinky_blue() {
-DDRB = DDRB | blue;  // Sätt pin 9 till OUTPUT
-PORTB = off;        // Sätt alla pins till LOW  
-    while(1){
-    PORTB = (1 << 1);    //Sätt pin 9 till HIGH 
-     _delay_ms(500);    //Vänta 500 ms
-    PORTB = off;       //Sätt alla pinnar till LOW 
-    _delay_ms(500);   //Vänta 500 ms
-    }    
+void led_off(void) {
+    PORTB = 0xff;           //Sets Port data register B to 255, which turns the led off
 }
 
-void blinky_green() {
-DDRB = DDRB | green; // Sätt pin 10 till OUTPUT
-PORTB = off;        // Sätt alla pins till LOW  
-    while(1){
-    PORTB = (1 << 3);    //Sätt pin 10 till HIGH 
-     _delay_ms(500);    //Vänta 500 ms
-    PORTB = off;       //Sätt alla pinnar till LOW 
-    _delay_ms(500);   //Vänta 500 ms
-    }    
+void led_init(void) {
+    DDRB = DDRB | RGB_INIT;  //Set pin 9,10,11 as output
+    led_off();              //turn led off to not be blinded
 }
 
-void blinky_red() {
-DDRB = DDRB | red; // Sätt pin 11 till OUTPUT
-PORTB = off;      // Sätt alla pins till LOW  
-    while(1){
-    PORTB = (1 << 4);    //Sätt pin 11 till HIGH 
-     _delay_ms(500);    //Vänta 500 ms
-    PORTB = off;       //Sätt alla pinnar till LOW 
-    _delay_ms(500);   //Vänta 500 ms
-    }  
+void blueLight(void) {
+    led_off();
+    PORTB &= ~blue;    //Set pin number 9 HIGH
+}
+
+void greenLight(void) {
+    led_off();
+    PORTB &= ~green;    //Set pin number 10 HIGH
+}
+
+void redLight(void) {
+    led_off();
+    PORTB &= ~red;    //Set pin number 11 HIGH
 }

@@ -3,25 +3,17 @@
 #include "serial.h"
 
 int main () {
-	//blinky_blue();
-	//blinky_green();
-	//blinky_red();
+	char *cmd[8]; //Array to store USART-inputs
 
-	//char chr = 'h';
-	//char chr2 = 'j';
-	//char chr1 = 'e';
-	//char stop = '\n';
-	char *str = "Olle J \n";
+	led_init();
+	uart_init();
 
 
 	uart_init();
 	
 	while(1) {
-		//uart_putchar(chr);
-		//uart_putchar(chr1);
-		//uart_putchar(chr2);
-		//uart_putchar(stop);
-		uart_putstr(str);
+		//uart_echo();
+		uart_buildCommand(cmd); //Fill the array with chars
+		uart_executeCommand(cmd); //Compare chars to led-commands.
 	}
-
 }

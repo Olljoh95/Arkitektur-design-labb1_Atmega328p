@@ -1,8 +1,11 @@
 #ifndef LED_H_
 #define LED_H_
 
-void blinky_blue(void);
-void blinky_green(void);
-void blinky_red(void);
+void led_init(void);
+void led_off(void);
+
+void blueLight(void);
+void greenLight(void);
+void redLight(void);
 
 #endif
