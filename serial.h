@@ -3,6 +3,8 @@
 
 void uart_init(void);
 
+void uart_executeCommand(char *cmd);
+
 void uart_putchar(unsigned char chr);
 
 void uart_buildCommand(char *cmd);

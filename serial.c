@@ -31,31 +31,44 @@ void uart_init(void) {
     UCSR0C = (1 << UCSZ00) | (1 << UCSZ01); //8 bit character size
 }
 
+void uart_executeCommand(char *cmd) {
+    if(strcmp(cmd, "blue\r\n") == 0) { //compare array content to activate desired led light.
+		blueLight();
+	}
+	else if(strcmp(cmd, "green\r\n") == 0) {
+		greenLight();
+	}
+	else if(strcmp(cmd, "red\r\n") == 0) {
+		redLight();
+	}
+	else {
+		led_off(); //If array content cannot be matched to command, turn led off.
+	}
+}
+
+
 void uart_putchar(unsigned char chr) {
     while(!(UCSR0A & (1 << UDRE0))) { // while transmission is available
     }
-            if(chr == '\n') { //check for prompted newline
-            UDR0 = '\r';   //break input
+        if(chr == '\n') { //check for prompted newline
+        UDR0 = '\r';   //insert string-breaker in reciever register
         }
-    UDR0 = chr; //load data into transmit register
+    
+    UDR0 = chr; //load data into buffer
 }
 
 void uart_buildCommand(char *cmd) {
     int i = 0;
-    cmd[i] = uart_getchar();
-    while(cmd[i] != '\r' && cmd[i] != '\n') {
-        uart_putchar(cmd[i]);
-        if(i <= 17) {
-            i++;
-            cmd[i] = uart_getchar();
-        } else {
-           cmd[i] = uart_getchar(); 
-        }
+    cmd[i] = uart_getchar(); //Get first character from buffer, insert into array at index 0
+    while(cmd[i] != '\r') { //While array att index i is not newline...
+        uart_putchar(cmd[i]); //Print out buffercontent to terminal.
+        i++;
+        cmd[i] = uart_getchar();  //Continously feed incremented array index
     }
-    cmd[i] = '\r';
+    cmd[i] = '\r'; //insert carrige return
     i++;
-    cmd[i] = '\n';
-    cmd[i+1] = '\0';
+    cmd[i] = '\n'; //insert newline
+    cmd[i+1] = '\0'; //break string
 }
 
 void uart_putstr(unsigned char *str) {
@@ -66,11 +79,13 @@ void uart_putstr(unsigned char *str) {
     }
 }
 
+
 void uart_echo(void) {
     uart_putchar(uart_getchar());  //Send char fetched from getChar function to putChar function
 }
 
+
 unsigned char uart_getchar(void) {
     while(!(UCSR0A & (1 << RXC0)));  //If recieve-buffer is not empty...
-    return UDR0;        //return reciver register content
+    return UDR0;        //return buffer content
 }
