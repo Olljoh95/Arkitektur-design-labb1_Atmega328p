@@ -16,7 +16,7 @@ void uart_init(void) {
 
     //UCSR0B = USART Control and Status Register B
     //RXEN = Enable receiver, TXEN0 = enable transmitter
-    UCSR0B = (1<<RXEN0) | (1<<TXEN0);
+    UCSR0B |= (1<<RXEN0) | (1<<TXEN0);
 
     //UCSR0C = USART control and status register C
     //I will set character size, parity, and UART/USART Mode, and number of stop bits to 8N1
