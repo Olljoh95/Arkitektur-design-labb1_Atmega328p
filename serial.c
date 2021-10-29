@@ -52,7 +52,7 @@ void uart_putchar(unsigned char chr) {
     while(!(UCSR0A & (1 << UDRE0))) { // while transmission is available
     }
         if(chr == '\n') { //check for prompted newline
-        UDR0 = '\r';   //insert string-breaker in reciever register
+        UDR0 = '\r';   //insert carrige return in reciever register
         }
     
     UDR0 = chr; //load data into buffer
@@ -61,7 +61,7 @@ void uart_putchar(unsigned char chr) {
 void uart_buildCommand(char *cmd) {
     int i = 0;
     cmd[i] = uart_getchar(); //Get first character from buffer, insert into array at index 0
-    while(cmd[i] != '\r') { //While array att index i is not newline...
+    while((cmd[i] != '\r') && (cmd[i] != '\n')) { //While array att index i is not newline and not carrige return...
         uart_putchar(cmd[i]); //Print out buffercontent to terminal.
         i++;
         cmd[i] = uart_getchar();  //Continously feed incremented array index

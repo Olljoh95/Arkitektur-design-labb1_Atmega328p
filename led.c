@@ -9,7 +9,7 @@
 #define RGB_INIT 0b00001110
 
 void led_off(void) {
-    PORTB = 0xff;           //Sets Port data register B to 255, which turns the led off
+    PORTB = 0b1110;           //Sets Port data register B HIGH on pin 9,10,11, which turns the led off.
 }
 
 void led_init(void) {
